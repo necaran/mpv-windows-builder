@@ -1,7 +1,13 @@
 name: build mpv
 on:
   workflow_dispatch:
-
+    inputs:
+      enableLto:
+        description: 'enable LTO'
+        required: false
+        default: false
+        type: boolean
+        
 jobs:
   build:
     runs-on: windows-latest
@@ -10,6 +16,7 @@ jobs:
       USERNAME: ikas-mc
       FEED_URL: https://nuget.pkg.github.com/ikas-mc/index.json
       VCPKG_BINARY_SOURCES: "clear;nuget,https://nuget.pkg.github.com/ikas-mc/index.json,readwrite"
+      ENABLE_LTO: ${{ github.event.inputs.enableLto }}
 
     steps:
     - uses: actions/checkout@v4
@@ -45,7 +52,11 @@ jobs:
                                                            $_ -ne 'C:\Strawberry\c\bin' }) -join ';'
         $env:VS_ROOT="C:\Program Files\Microsoft Visual Studio\18\Enterprise"
         $env:VCPKG_ROOT=$env:VCPKG_INSTALLATION_ROOT
-        .\build-deps.ps1
+        if ($env:ENABLE_LTO -eq 'true') {
+          .\build-deps-lto.ps1
+        } else {
+          .\build-deps.ps1
+        }
 
     - name: build mpv
       run: |
@@ -53,7 +64,11 @@ jobs:
                                                            $_ -ne 'C:\Program Files\CMake\bin' -and `
                                                            $_ -ne 'C:\Strawberry\c\bin' }) -join ';'
         $env:VS_ROOT="C:\Program Files\Microsoft Visual Studio\18\Enterprise"
-        .\build-mpv.ps1
+        if ($env:ENABLE_LTO -eq 'true') {
+          .\build-mpv-lto.ps1
+        } else {
+          .\build-mpv.ps1
+        }
 
     - name: Print build log
       if: ${{ failure() && steps.build.outcome == 'failure' }}
