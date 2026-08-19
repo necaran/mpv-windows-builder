@@ -1,0 +1,30 @@
+ configure | 13 ++-----------
+ 1 file changed, 2 insertions(+), 11 deletions(-)
+
+diff --git a/configure b/configure
+index 12c55ef..a220c50 100644
+--- a/configure
++++ b/configure
+@@ -8068,20 +8068,11 @@ check_optflags -fno-math-errno
+ check_optflags -fno-signed-zeros
+ 
+ if [ -n "$lto" ]; then
+-    test "$cc_type" != "$ld_type" && die "LTO requires same compiler and linker"
++    #test "$cc_type" != "$ld_type" && die "LTO requires same compiler and linker"
+     check_cflags  $lto
+     check_ldflags $lto $cpuflags
+     disable inline_asm_direct_symbol_refs
+-    if test "$cc_type" = "clang"; then
+-        # Clang's LTO fails on Windows, when there are references outside
+-        # of inline assembly to nonlocal labels defined within inline assembly,
+-        # see https://github.com/llvm/llvm-project/issues/76046.
+-        case $target_os in
+-        mingw32|win32)
+-            disable inline_asm_nonlocal_labels
+-            ;;
+-        esac
+-    fi
++    disable inline_asm_nonlocal_labels
+ fi
+ 
+ enabled ftrapv && check_cflags -ftrapv

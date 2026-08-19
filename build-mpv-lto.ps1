@@ -4,7 +4,7 @@ Set-Location mpv-builder
 
 .\env-win.ps1
 .\env-clang.ps1
-.\deps-vcpkg.ps1
+.\deps-vcpkg-lto.ps1
 .\clone-mpv.ps1
 
 Set-Location mpv-windows

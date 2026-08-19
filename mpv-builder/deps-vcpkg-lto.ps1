@@ -5,7 +5,7 @@ if (-not $env:workspace) {
 }
 Write-Host "Using workspace: $env:workspace"
 
-$libPath = "${env:workspace}\mpv-deps-builder\vcpkg_installed\x64-llvm-windows-static-mt"
+$libPath = "${env:workspace}\mpv-deps-builder\vcpkg_installed\x64-llvm-windows-static-mt-lto"
 $env:C_INCLUDE_PATH = "$libPath\include"
 $env:CPLUS_INCLUDE_PATH = "$libPath\include"
 $env:LIBRARY_PATH = "$libPath\lib"
