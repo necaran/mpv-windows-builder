@@ -19,7 +19,7 @@ meson setup build `
     -Dlibbluray=enabled `
     -Ddrm=disabled `
     -Dzimg=disabled `
-    -Djpeg=disabled  `
+    -Djpeg=enabled  `
     -Dgl=disabled `
     -Dvaapi=disabled `
     -Dd3d9-hwaccel=disabled  `
@@ -29,6 +29,8 @@ meson setup build `
     -Dwayland=disabled `
     -Dtests=false `
     -Dlibcurl=enabled `
+    -Ddvda=enabled `
+    -Ddvdnav=enabled `
     -Dlibplacebo:demos=false `
     -Dlibplacebo:lcms=enabled `
     -Dlibplacebo:shaderc=enabled `
