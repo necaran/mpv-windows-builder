@@ -31,6 +31,8 @@ meson setup build `
     -Dlibcurl=enabled `
     -Ddvda=enabled `
     -Ddvdnav=enabled `
+    -Ddvdnav=enabled `
+    -Dcdda=enabled `
     -Dlibplacebo:demos=false `
     -Dlibplacebo:lcms=enabled `
     -Dlibplacebo:shaderc=enabled `
